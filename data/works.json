@@ -1,0 +1,84 @@
+{
+  "items": [
+    {
+      "src": "https://aka.doubaocdn.com/s/glMLGKx0pV",
+      "title": "无声的侧影",
+      "en": "SILHOUETTE",
+      "cat": "人像",
+      "year": "2024",
+      "featured": true,
+      "desc": "光影切割下的侧脸，沉默比语言更有力量。",
+      "url": "#/article/silhouette"
+    },
+    {
+      "src": "https://aka.doubaocdn.com/s/49ZNWg0KP2",
+      "title": "山与雾",
+      "en": "MIST",
+      "cat": "风光",
+      "year": "2023",
+      "featured": true,
+      "desc": "蓝调时刻的层叠山脊，雾是山的呼吸。",
+      "url": "#/article/mist"
+    },
+    {
+      "src": "https://aka.doubaocdn.com/s/Sh7A57vBBw",
+      "title": "雨夜的巷",
+      "en": "RAIN",
+      "cat": "城市",
+      "year": "2024",
+      "featured": false,
+      "desc": "霓虹在湿地上流淌，一个人的背影是城市的注脚。",
+      "url": "#/article/rain"
+    },
+    {
+      "src": "https://aka.doubaocdn.com/s/gpi5M2FStK",
+      "title": "混凝土诗",
+      "en": "CONCRETE",
+      "cat": "建筑",
+      "year": "2023",
+      "featured": false,
+      "desc": "几何与阴影的对话，粗野主义的克制之美。",
+      "url": "#/article/concrete"
+    },
+    {
+      "src": "https://aka.doubaocdn.com/s/yxjDhrHbGP",
+      "title": "沙的纹理",
+      "en": "DUNES",
+      "cat": "风光",
+      "year": "2025",
+      "featured": true,
+      "desc": "风在沙上写下的诗，每一道曲线都是时间的痕迹。",
+      "url": "#/article/dunes"
+    },
+    {
+      "src": "https://aka.doubaocdn.com/s/Q8Khb2afYY",
+      "title": "流动的夜",
+      "en": "NIGHT FLOW",
+      "cat": "城市",
+      "year": "2025",
+      "featured": false,
+      "desc": "长曝光下的车流，是城市不眠的血脉。",
+      "url": "#/article/night-flow"
+    },
+    {
+      "src": "https://aka.doubaocdn.com/s/Qfp7SRrIcr",
+      "title": "暮色舞台",
+      "en": "STAGE",
+      "cat": "活动纪实",
+      "year": "2025",
+      "featured": false,
+      "desc": "黄昏的舞台灯光穿过烟雾，音乐在光里具象化。",
+      "url": "#/article/stage"
+    },
+    {
+      "src": "https://aka.doubaocdn.com/s/25KMrW2hC7",
+      "title": "窗边的光",
+      "en": "WINDOW LIGHT",
+      "cat": "人像",
+      "year": "2025",
+      "featured": false,
+      "desc": "清晨的柔光穿过白纱，安静是最好的妆容。",
+      "url": "#/article/window-light"
+    }
+  ]
+}

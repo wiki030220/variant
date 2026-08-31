@@ -1,0 +1,11 @@
+# 异见 VARIANT · Netlify 部署配置
+# 纯静态站点：无需构建，直接发布仓库根目录
+[build]
+  publish = "."
+
+# 基础响应头（可选）
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

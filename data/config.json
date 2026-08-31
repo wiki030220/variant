@@ -1,0 +1,27 @@
+{
+  "site": {
+    "brand": "异见",
+    "brandEn": "VARIANT",
+    "searchPlaceholder": "搜索文章、影评、书评、影像、关键词…"
+  },
+  "about": {
+    "title": "关于异见",
+    "secNo": "06 — ABOUT",
+    "imagePlaceholderText": "图片占位",
+    "imageCaption": "图片说明占位",
+    "introTitle": "品牌名称占位",
+    "introText": "这里是品牌/团队简介的占位文字。后续替换为异见 VARIANT 的创刊理念、团队介绍、内容方向等实际信息。",
+    "introText2": "这里是第二段简介的占位文字。可以描述媒体定位、覆盖领域、读者群体、合作方式等内容。",
+    "philosophy": [
+      { "title": "理念标题占位一", "text": "这里是理念描述的占位文字，后续替换为实际内容。" },
+      { "title": "理念标题占位二", "text": "这里是理念描述的占位文字，后续替换为实际内容。" },
+      { "title": "理念标题占位三", "text": "这里是理念描述的占位文字，后续替换为实际内容。" },
+      { "title": "理念标题占位四", "text": "这里是理念描述的占位文字，后续替换为实际内容。" }
+    ]
+  },
+  "footer": {
+    "copyright": "© 2026 异见 VARIANT · ALL RIGHTS RESERVED",
+    "email": "contact@variant.media",
+    "wechat": "微信 @异见VARIANT"
+  }
+}

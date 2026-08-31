@@ -1,0 +1,118 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# 本地开发时如需预览后台，取消下行注释并运行 npx decap-server
+# local_backend: true
+
+publish_mode: editorial_workflow
+
+# 上传的图片将保存到仓库 assets/uploads 目录
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  # ---------- 影像作品 ----------
+  - name: "works"
+    label: "影像作品"
+    description: "首页放映机与作品集使用的摄影作品。修改后保存即可发布。"
+    format: "json"
+    files:
+      - label: "作品列表"
+        name: "works"
+        file: "data/works.json"
+        fields:
+          - label: "作品"
+            name: "items"
+            widget: "list"
+            collapsed: false
+            fields:
+              - { label: "图片", name: "src", widget: "image" }
+              - { label: "标题", name: "title", widget: "string" }
+              - { label: "英文名", name: "en", widget: "string" }
+              - label: "分类"
+                name: "cat"
+                widget: "select"
+                options: ["人像", "风光", "城市", "建筑", "活动纪实"]
+              - { label: "年份", name: "year", widget: "string" }
+              - { label: "精选（进放映机）", name: "featured", widget: "boolean", default: false }
+              - { label: "描述", name: "desc", widget: "text" }
+              - { label: "链接", name: "url", widget: "string", hint: "如 #/article/concrete" }
+
+  # ---------- 文章（影评 / 书评 / 艺术观察） ----------
+  - name: "articles"
+    label: "文章"
+    description: "影评 / 书评 / 艺术观察，编辑推荐与最新文章均由此生成。"
+    format: "json"
+    files:
+      - label: "文章列表"
+        name: "articles"
+        file: "data/articles.json"
+        fields:
+          - label: "文章"
+            name: "items"
+            widget: "list"
+            collapsed: false
+            fields:
+              - { label: "ID", name: "id", widget: "string", hint: "唯一标识，用于链接，如 oppenheimer-time" }
+              - label: "分类"
+                name: "cat"
+                widget: "select"
+                options: ["影评", "书评", "艺术观察"]
+              - label: "分类英文"
+                name: "catEn"
+                widget: "select"
+                options: ["FILM", "BOOK", "ART"]
+              - { label: "标题", name: "title", widget: "string" }
+              - { label: "摘要", name: "excerpt", widget: "text" }
+              - { label: "日期", name: "date", widget: "string", hint: "格式 2026.08.28" }
+              - { label: "阅读时长", name: "read", widget: "string", hint: "如 8 min read" }
+              - { label: "封面图", name: "cover", widget: "image" }
+              - { label: "链接", name: "url", widget: "string" }
+              - { label: "编辑推荐（进首页精选）", name: "featured", widget: "boolean", default: false }
+
+  # ---------- 站点配置 ----------
+  - name: "config"
+    label: "站点配置"
+    description: "品牌、关于、页脚等全站信息。"
+    format: "json"
+    files:
+      - label: "站点设置"
+        name: "config"
+        file: "data/config.json"
+        fields:
+          - label: "站点"
+            name: "site"
+            widget: "object"
+            collapsed: false
+            fields:
+              - { label: "品牌名", name: "brand", widget: "string" }
+              - { label: "英文品牌", name: "brandEn", widget: "string" }
+              - { label: "搜索占位文字", name: "searchPlaceholder", widget: "string" }
+          - label: "关于"
+            name: "about"
+            widget: "object"
+            collapsed: false
+            fields:
+              - { label: "标题", name: "title", widget: "string" }
+              - { label: "章节编号", name: "secNo", widget: "string" }
+              - { label: "图片占位文字", name: "imagePlaceholderText", widget: "string" }
+              - { label: "图片说明", name: "imageCaption", widget: "string" }
+              - { label: "简介标题", name: "introTitle", widget: "string" }
+              - { label: "简介第一段", name: "introText", widget: "text" }
+              - { label: "简介第二段", name: "introText2", widget: "text" }
+              - label: "理念列表"
+                name: "philosophy"
+                widget: "list"
+                collapsed: false
+                fields:
+                  - { label: "标题", name: "title", widget: "string" }
+                  - { label: "内容", name: "text", widget: "text" }
+          - label: "页脚"
+            name: "footer"
+            widget: "object"
+            collapsed: false
+            fields:
+              - { label: "版权文字", name: "copyright", widget: "string" }
+              - { label: "邮箱", name: "email", widget: "string" }
+              - { label: "微信", name: "wechat", widget: "string" }

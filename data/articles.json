@@ -1,0 +1,112 @@
+{
+  "items": [
+    {
+      "id": "oppenheimer-time",
+      "cat": "影评",
+      "catEn": "FILM",
+      "title": "《奥本海默》之后：诺兰的时间迷宫与道德重量",
+      "excerpt": "诺兰用三小时的黑白交错，把一个物理学家的内心裂变拍成了一场无声的核爆。当时间不再是线性的叙事工具，而是道德审判的法庭，我们该如何重新理解“天才”与“罪”？",
+      "date": "2026.08.28",
+      "read": "8 min read",
+      "cover": "https://picsum.photos/seed/film1/800/500",
+      "url": "#/article/oppenheimer-time",
+      "featured": true
+    },
+    {
+      "id": "marquez-reread",
+      "cat": "书评",
+      "catEn": "BOOK",
+      "title": "《百年孤独》重读：魔幻现实主义的当代回响",
+      "excerpt": "三十年后再读马尔克斯，发现马孔多的孤独从未远去。当现实比小说更魔幻，当遗忘成为时代的集体症候，布恩迪亚家族的命运似乎正在以另一种方式重演。",
+      "date": "2026.08.25",
+      "read": "9 min read",
+      "cover": "https://picsum.photos/seed/book1/800/500",
+      "url": "#/article/marquez-reread",
+      "featured": true
+    },
+    {
+      "id": "venice-biennale-2026",
+      "cat": "艺术观察",
+      "catEn": "ART",
+      "title": "2026 威尼斯双年展：当艺术不再回避政治",
+      "excerpt": "从难民危机到气候正义，这一届双年展的艺术家们选择了直面。当美术馆的白盒子被撕开一道口子，让现实的风灌进来，艺术是否还能保持它的“自主性”？",
+      "date": "2026.08.22",
+      "read": "10 min read",
+      "cover": "https://picsum.photos/seed/art1/800/500",
+      "url": "#/article/venice-biennale-2026",
+      "featured": true
+    },
+    {
+      "id": "koreeda-stillness",
+      "cat": "影评",
+      "catEn": "FILM",
+      "title": "是枝裕和的静物美学：日常中的神性瞬间",
+      "excerpt": "从《步履不停》到《怪物》，是枝裕和始终在拍那些“没有发生什么”的时刻。一碗泡面、一场雨、一次沉默的对视——他让我们相信，最深刻的情感往往藏在最平淡的日常里。",
+      "date": "2026.08.20",
+      "read": "6 min read",
+      "cover": "https://picsum.photos/seed/film2/800/500",
+      "url": "#/article/koreeda-stillness",
+      "featured": false
+    },
+    {
+      "id": "hesse-steppenwolf",
+      "cat": "书评",
+      "catEn": "BOOK",
+      "title": "黑塞《荒原狼》：现代人的精神分裂与救赎",
+      "excerpt": "哈勒尔的“人性”与“狼性”之争，是每一个现代人内心的真实写照。在一个崇尚效率与整合的时代，黑塞告诉我们：分裂不是病，而是深度的证明。",
+      "date": "2026.08.15",
+      "read": "7 min read",
+      "cover": "https://picsum.photos/seed/book2/800/500",
+      "url": "#/article/hesse-steppenwolf",
+      "featured": false
+    },
+    {
+      "id": "multiverse-fatigue",
+      "cat": "影评",
+      "catEn": "FILM",
+      "title": "从《瞬息全宇宙》到多元宇宙的疲劳",
+      "excerpt": "当每一部超级英雄电影都在打开平行世界，多元宇宙正在从叙事革命变成叙事疲劳。无限的可能性，是否反而意味着意义的消解？",
+      "date": "2026.08.12",
+      "read": "7 min read",
+      "cover": "https://picsum.photos/seed/film3/800/500",
+      "url": "#/article/multiverse-fatigue",
+      "featured": false
+    },
+    {
+      "id": "digital-art-boundary",
+      "cat": "艺术观察",
+      "catEn": "ART",
+      "title": "数字艺术的边界：NFT 退潮后的技术美学",
+      "excerpt": "泡沫破裂之后，真正的问题才浮现出来：当一件作品可以被无限复制，“原作”还重要吗？当 AI 可以生成任何图像，“创作”的定义是否需要被重写？",
+      "date": "2026.08.10",
+      "read": "8 min read",
+      "cover": "https://picsum.photos/seed/art2/800/500",
+      "url": "#/article/digital-art-boundary",
+      "featured": false
+    },
+    {
+      "id": "tang-reading",
+      "cat": "书评",
+      "catEn": "BOOK",
+      "title": "唐诺《阅读的故事》：在速度时代重新学会慢读",
+      "excerpt": "当一切都在加速，阅读成了最后的慢行为。最好的读者，永远是那个最慢的人。",
+      "date": "2026.08.05",
+      "read": "6 min read",
+      "cover": "https://picsum.photos/seed/book3/800/500",
+      "url": "#/article/tang-reading",
+      "featured": false
+    },
+    {
+      "id": "museum-twilight",
+      "cat": "艺术观察",
+      "catEn": "ART",
+      "title": "美术馆的黄昏？实体展览在流媒体时代的命运",
+      "excerpt": "当一切都可以被屏幕化，为什么我们还要走进美术馆？艺术的力量从来不是“看见”，而是“在场”。",
+      "date": "2026.07.28",
+      "read": "6 min read",
+      "cover": "https://picsum.photos/seed/art3/800/500",
+      "url": "#/article/museum-twilight",
+      "featured": false
+    }
+  ]
+}
