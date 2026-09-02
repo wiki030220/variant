@@ -14,7 +14,6 @@ public_folder: "/assets/uploads"
 # 站点品牌（显示在后台左上角）
 site_url: https://variant-media.netlify.app
 display_url: https://variant-media.netlify.app
-logo_url: ""
 
 collections:
   # ============================================================
@@ -23,7 +22,7 @@ collections:
   - name: "works"
     label: "影像作品"
     label_singular: "作品"
-    icon: "📷"
+    icon: "photo_camera"
     description: "首页放映机与作品集使用的摄影作品。保存后自动发布。"
     format: "json"
     files:
@@ -56,7 +55,7 @@ collections:
   - name: "articles"
     label: "文章"
     label_singular: "文章"
-    icon: "📝"
+    icon: "article"
     description: "影评 / 书评 / 艺术观察全部文章。"
     format: "json"
     files:
@@ -94,7 +93,7 @@ collections:
   - name: "config"
     label: "站点配置"
     label_singular: "站点配置"
-    icon: "⚙️"
+    icon: "settings"
     description: "品牌、关于、页脚等全站信息。一般只在网站上线初期设置一次。"
     format: "json"
     files:
