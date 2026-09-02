@@ -10,3 +10,19 @@
   [headers.values]
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+
+# 后台与首页禁用缓存，保证每次拿到最新版本
+[[headers]]
+  for = "/cms/index.html"
+  [headers.values]
+    Cache-Control = "no-store, max-age=0"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-store, max-age=0"
+
+[[headers]]
+  for = "/cms/"
+  [headers.values]
+    Cache-Control = "no-store, max-age=0"
