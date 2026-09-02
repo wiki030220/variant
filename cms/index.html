@@ -288,10 +288,13 @@ function renderShell(){
 function setActive(){
   var items = document.querySelectorAll('.menu-item');
   for(var i=0;i<items.length;i++){
-    items[i].classList.toggle('active', items[i].getAttribute('data-view')===view);
+    var v = items[i].getAttribute('data-view');
+    var active = (v===view) || (v==='articles' && view.indexOf('article-edit')===0) || (v==='works' && view.indexOf('work-edit')===0);
+    items[i].classList.toggle('active', active);
   }
-  var titles = { dashboard:'首页', articles:'文章管理', works:'影像作品', config:'站点配置' };
-  $('pageTitle').textContent = titles[view] || '';
+  var titles = { dashboard:'首页', articles:'文章管理', works:'影像作品', config:'站点配置', 'article-edit':'添加 / 编辑文章', 'work-edit':'添加 / 编辑作品' };
+  var tKey = view.indexOf('article-edit')===0 ? 'article-edit' : (view.indexOf('work-edit')===0 ? 'work-edit' : view);
+  $('pageTitle').textContent = titles[tKey] || '';
   $('sidebar').classList.remove('open');
   $('sideBackdrop').classList.remove('show');
 }
@@ -302,7 +305,12 @@ function render(){
   else if(view==='articles') c.innerHTML = viewArticles();
   else if(view==='works') c.innerHTML = viewWorks();
   else if(view==='config') c.innerHTML = viewConfig();
+  else if(view==='article-edit' || view.indexOf('article-edit/')===0) c.innerHTML = viewArticleEdit(editIdFromView());
+  else if(view==='work-edit' || view.indexOf('work-edit/')===0) c.innerHTML = viewWorkEdit(editIdFromView());
   bindViewEvents();
+}
+function editIdFromView(){
+  return view.indexOf('/')>-1 ? decodeURIComponent(view.split('/')[1]) : null;
 }
 
 /* ---------- 视图：仪表盘 ---------- */
@@ -541,20 +549,23 @@ function bindViewEvents(){
     $('phAdd').onclick = function(){ addPhilosophy(); };
     var dels = document.querySelectorAll('.ph-del');
     for(var d=0;d<dels.length;d++){ dels[d].onclick = delPhilosophy; }
-  } else if(view==='article-edit'){
+  } else if(view==='article-edit' || view.indexOf('article-edit/')===0){
     var catSel = $('fCat');
     if(catSel){ catSel.onchange = syncCatEn; }
     var up = $('fCoverUp');
     if(up){ up.onclick = function(){ $('fCoverFile').click(); }; $('fCoverFile').onchange = handleCoverUpload; }
     var save = $('saveArticle');
     if(save){ save.onclick = saveArticle; }
-    $('backList').onclick = function(){ go('articles'); };
+    var bl = $('backList');
+    if(bl){ bl.onclick = function(){ go('articles'); }; }
     syncCatEn();
-  } else if(view==='work-edit'){
+  } else if(view==='work-edit' || view.indexOf('work-edit/')===0){
     var up2 = $('wSrcUp');
     if(up2){ up2.onclick = function(){ $('wSrcFile').click(); }; $('wSrcFile').onchange = handleWorkUpload; }
-    $('saveWork').onclick = saveWork;
-    $('backList').onclick = function(){ go('works'); };
+    var sw = $('saveWork');
+    if(sw){ sw.onclick = saveWork; }
+    var bl2 = $('backList');
+    if(bl2){ bl2.onclick = function(){ go('works'); }; }
   }
 }
 function rowKeyArticle(x){ return x.id; }
