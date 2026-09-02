@@ -176,7 +176,7 @@ table.tbl{width:100%;border-collapse:collapse;}
     <div class="login-logo">异见 <span style="color:var(--accent);">VARIANT</span></div>
     <div class="login-sub">内容管理后台 · 请登录后使用</div>
     <button class="login-btn" id="btnLogin">登 录</button>
-    <div class="login-tip">使用你的邮箱与密码登录（与 <b>/admin</b> 后台同一套账号）。<br>忘记密码？请用之前的后台登录找回。</div>
+    <div class="login-tip">使用你的邮箱与密码登录（与 <b>/admin</b> 后台同一套账号）。<br>忘记密码？请用之前的后台登录找回。<br><span style="color:#b3433f;">提示：若点击"登 录"无反应，请改用 Chrome 或 Safari 打开本页。</span></div>
   </div>
 </div>
 
@@ -819,37 +819,49 @@ function initApp(){
 window.addEventListener('hashchange', route);
 
 document.addEventListener('DOMContentLoaded', function(){
-  var btnLogin = $('btnLogin');
-  btnLogin.onclick = function(){
-    netlifyIdentity.open();
-  };
-  $('btnLogout').onclick = function(){
-    netlifyIdentity.logout();
-  };
-  $('btnMenu').onclick = function(){
-    $('sidebar').classList.toggle('open');
-    $('sideBackdrop').classList.toggle('show');
-  };
-  $('sideBackdrop').onclick = function(){
-    $('sidebar').classList.remove('open');
-    this.classList.remove('show');
-  };
+  try{
+    var btnLogin = $('btnLogin');
+    if(btnLogin){ btnLogin.onclick = function(){ if(window.netlifyIdentity){ netlifyIdentity.open(); } }; }
+    var btnLogout = $('btnLogout');
+    if(btnLogout){ btnLogout.onclick = function(){ if(window.netlifyIdentity){ netlifyIdentity.logout(); } }; }
+    var btnMenu = $('btnMenu');
+    if(btnMenu){ btnMenu.onclick = function(){ $('sidebar').classList.toggle('open'); $('sideBackdrop').classList.toggle('show'); }; }
+    var bd = $('sideBackdrop');
+    if(bd){ bd.onclick = function(){ $('sidebar').classList.remove('open'); this.classList.remove('show'); }; }
 
-  netlifyIdentity.on('login', async function(){
-    try{ await loadData(); }catch(e){}
-    $('loading').classList.add('hide');
-    initApp();
-  });
-  netlifyIdentity.on('logout', function(){
-    $('loginView').classList.add('show');
-    $('shell').classList.remove('show');
-  });
-
-  if(getUser()){
-    loadData().then(function(){ initApp(); }).catch(function(){ initApp(); });
-  } else {
-    $('loading').classList.add('hide');
-    initApp();
+    var id = window.netlifyIdentity;
+    var showLogin = function(){
+      $('loginView').classList.add('show');
+      $('shell').classList.remove('show');
+    };
+    var ready = function(){
+      if(getUser()){
+        loadData().then(function(){ initApp(); }).catch(function(){ initApp(); });
+      } else {
+        $('loading').classList.add('hide');
+        showLogin();
+      }
+    };
+    if(id){
+      id.on('login', async function(){
+        try{ await loadData(); }catch(e){}
+        $('loading').classList.add('hide');
+        initApp();
+      });
+      id.on('logout', function(){ showLogin(); });
+      id.on('init', ready);
+    }
+    /* 兜底：无论组件是否就绪、是否登录，都要退出"加载中"状态 */
+    if(getUser()){
+      loadData().then(function(){ initApp(); }).catch(function(){ initApp(); });
+    } else {
+      $('loading').classList.add('hide');
+      showLogin();
+    }
+  }catch(err){
+    var ld = $('loading');
+    if(ld) ld.classList.add('hide');
+    console.error('init error:', err);
   }
 });
 })();
