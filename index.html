@@ -893,6 +893,29 @@ section.featured, section.section, footer.footer{ position:relative; z-index:1; 
   *,*::before,*::after{ animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
   .grain{ animation:none; }
 }
+
+/* ============================================================
+   14 · 文章详情页
+   ============================================================ */
+.article-view{ position:fixed; inset:0; z-index:200; background:#0a0a0a; overflow-y:auto; color:#f2f2f2; -webkit-overflow-scrolling:touch; }
+.article-view[hidden]{ display:none; }
+.article-view__bar{ position:sticky; top:0; z-index:2; display:flex; align-items:center; justify-content:space-between; padding:18px 6vw; background:rgba(10,10,10,.82); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-bottom:1px solid rgba(255,255,255,.08); }
+.article-view__back{ background:none; border:1px solid rgba(255,255,255,.22); color:#f2f2f2; font-size:13px; letter-spacing:.06em; padding:8px 16px; border-radius:999px; cursor:pointer; transition:border-color .25s,color .25s; }
+.article-view__back:hover{ border-color:var(--accent, #c9a25a); color:var(--accent, #c9a25a); }
+.article-view__brand{ font-size:12px; letter-spacing:.22em; color:#8a8a8a; }
+.article-view__body{ max-width:760px; margin:0 auto; padding:56px 24px 120px; }
+.article-view__cat{ font-size:12px; letter-spacing:.24em; color:var(--accent, #c9a25a); text-transform:uppercase; margin-bottom:18px; }
+.article-view__title{ font-size:clamp(26px,4.4vw,40px); font-weight:600; line-height:1.28; margin:0 0 14px; }
+.article-view__meta{ font-size:13px; color:#8a8a8a; letter-spacing:.04em; }
+.article-view__meta .dot{ display:inline-block; width:3px; height:3px; border-radius:50%; background:#8a8a8a; margin:0 10px; vertical-align:middle; }
+.article-view__cover{ width:100%; max-height:440px; object-fit:cover; border-radius:12px; margin:28px 0 34px; }
+.article-view__content{ font-size:16.5px; line-height:1.9; color:#d8d8d8; }
+.article-view__content p{ margin:0 0 1.2em; }
+.article-view__content h3{ font-size:19px; margin:1.6em 0 .7em; color:#fff; }
+.article-view__content blockquote{ border-left:3px solid var(--accent, #c9a25a); margin:1.4em 0; padding:.3em 0 .3em 18px; color:#9d9d9d; }
+.article-view__content img{ max-width:100%; border-radius:10px; margin:1.2em 0; }
+.article-view__content a{ color:var(--accent, #c9a25a); text-decoration:underline; text-underline-offset:3px; }
+.article-view__fallback{ font-size:16.5px; line-height:1.9; color:#b5b5b5; padding:24px 0 40px; }
 </style>
 <!-- Netlify Identity Widget：接收邀请链接并弹出设置密码 / 登录框 -->
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
@@ -2045,6 +2068,41 @@ if(reduceMotion){ document.querySelectorAll('.reveal,.reveal-scale').forEach(el=
 })();
 
 /* ============================================================
+   文章详情页 · hash 路由（#/article/<id>）
+   ============================================================ */
+function initArticleView(){
+  const v = document.getElementById('articleView');
+  if(!v) return;
+  const back = document.getElementById('articleBack');
+  if(back) back.addEventListener('click', () => { location.hash = '#top'; });
+  window.addEventListener('hashchange', handleArticleHash);
+  handleArticleHash();
+}
+function handleArticleHash(){
+  const v = document.getElementById('articleView');
+  if(!v) return;
+  const m = (location.hash || '').match(/^#\/article\/(.+)$/);
+  if(!m){ v.hidden = true; document.body.style.overflow = ''; return; }
+  const id = decodeURIComponent(m[1]);
+  const a = ARTICLES.find(x => x.id === id);
+  if(!a){ v.hidden = true; document.body.style.overflow = ''; return; }
+  const brand = document.getElementById('articleViewBrand');
+  if(brand) brand.textContent = (CONFIG.site && CONFIG.site.brand) ? CONFIG.site.brand + ' VARIANT' : '异见 VARIANT';
+  const body = document.getElementById('articleViewBody');
+  body.innerHTML =
+    '<div class="article-view__cat">' + (a.cat || '') + (a.catEn ? ' · ' + a.catEn : '') + '</div>' +
+    '<h1 class="article-view__title">' + a.title + '</h1>' +
+    '<div class="article-view__meta">' + (a.date || '') + (a.read ? '<span class="dot"></span>' + a.read : '') + '</div>' +
+    (a.cover ? '<img class="article-view__cover" src="' + a.cover + '" alt="' + a.title + '">' : '') +
+    (a.content && a.content.trim()
+      ? '<div class="article-view__content">' + a.content + '</div>'
+      : '<p class="article-view__fallback">' + (a.excerpt || '正文待补充…') + '</p>');
+  v.hidden = false;
+  document.body.style.overflow = 'hidden';
+  v.scrollTop = 0;
+}
+
+/* ============================================================
    启动 · 数据加载与渲染（数据来自 data/*.json）
    ============================================================ */
 (async function bootstrap(){
@@ -2069,11 +2127,20 @@ if(reduceMotion){ document.querySelectorAll('.reveal,.reveal-scale').forEach(el=
   renderArticles();
   renderAbout();
   renderFooter();
+  /* 文章详情页（hash 路由） */
+  initArticleView();
   /* 初始化交互（依赖渲染后的 DOM） */
   initFeatured();
   initSearch();
   initFilter();
 })();
 </script>
+<div id="articleView" class="article-view" hidden>
+  <div class="article-view__bar">
+    <button class="article-view__back" id="articleBack" data-cursor="link">← 返回</button>
+    <span class="article-view__brand" id="articleViewBrand">异见 VARIANT</span>
+  </div>
+  <article class="article-view__body" id="articleViewBody"></article>
+</div>
 </body>
 </html>

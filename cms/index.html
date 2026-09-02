@@ -129,6 +129,17 @@ table.tbl{width:100%;border-collapse:collapse;}
 .upload-preview img{max-width:200px;max-height:110px;border-radius:6px;border:1px solid var(--line);display:block;margin-bottom:6px;}
 .upload-tip{font-size:11.5px;color:#9aa1ab;}
 
+/* 富文本编辑器 */
+.editor-toolbar{display:flex;flex-wrap:wrap;gap:4px;border:1px solid var(--line);border-bottom:none;border-radius:6px 6px 0 0;background:#fafbfc;padding:6px;}
+.editor-toolbar button{min-width:32px;height:30px;padding:0 9px;border:1px solid var(--line);background:#fff;border-radius:5px;font-size:13px;color:var(--text);cursor:pointer;}
+.editor-toolbar button:hover{border-color:var(--accent);color:var(--accent);}
+.editor-area{min-height:220px;border:1px solid var(--line);border-radius:0 0 6px 6px;padding:14px 16px;font-size:14.5px;line-height:1.8;background:#fff;color:#1f2430;overflow-y:auto;}
+.editor-area:focus{outline:none;border-color:var(--accent);}
+.editor-area[contenteditable=true]:empty:before{content:attr(data-placeholder);color:#b6bcc6;pointer-events:none;}
+.editor-area h3{font-size:17px;margin:.6em 0;}
+.editor-area blockquote{border-left:3px solid var(--accent);margin:.6em 0;padding:.2em 0 .2em 14px;color:#556;}
+.editor-area a{color:var(--accent);}
+
 /* 分组区块（站点配置） */
 .cfg-group{border:1px solid var(--line);border-radius:8px;margin-bottom:18px;overflow:hidden;}
 .cfg-group>.hd{background:#fafbfc;padding:12px 18px;font-size:14px;font-weight:600;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px;}
@@ -312,6 +323,25 @@ function render(){
 function editIdFromView(){
   return view.indexOf('/')>-1 ? decodeURIComponent(view.split('/')[1]) : null;
 }
+function bindEditorToolbar(){
+  var btns = document.querySelectorAll('.editor-toolbar button');
+  var area = $('fContent');
+  for(var i=0;i<btns.length;i++){
+    (function(btn){
+      btn.onclick = function(){
+        var cmd = btn.getAttribute('data-cmd');
+        var val = btn.getAttribute('data-val');
+        if(cmd==='createLink'){
+          var u = prompt('输入链接地址：');
+          if(u){ document.execCommand('createLink', false, u); }
+        } else {
+          document.execCommand(cmd, false, val || null);
+        }
+        if(area) area.focus();
+      };
+    })(btns[i]);
+  }
+}
 
 /* ---------- 视图：仪表盘 ---------- */
 function viewDashboard(){
@@ -490,6 +520,26 @@ function viewArticleEdit(id){
   '</div></div>'+
   '<div class="form-row"><div class="form-group full"><label>摘要</label><textarea id="fExcerpt">'+esc(x.excerpt||'')+'</textarea></div></div>'+
   '<div class="form-row">'+
+    '<div class="form-group"><label>标签</label><input id="fTags" value="'+esc((x.tags||[]).join(', '))+'"><div class="hint">多个标签用逗号分隔</div></div>'+
+    '<div class="form-group"><label>状态</label><select id="fStatus">'+
+      '<option value="published"'+(x.status==='draft'?'':' selected')+'>已发布</option>'+
+      '<option value="draft"'+(x.status==='draft'?' selected':'')+'>草稿</option>'+
+    '</select></div>'+
+  '</div>'+
+  '<div class="form-row"><div class="form-group full"><label>正文</label>'+
+    '<div class="editor-toolbar">'+
+      '<button type="button" data-cmd="bold" title="加粗"><b>B</b></button>'+
+      '<button type="button" data-cmd="italic" title="斜体"><i>I</i></button>'+
+      '<button type="button" data-cmd="formatBlock" data-val="H3" title="小标题">H</button>'+
+      '<button type="button" data-cmd="formatBlock" data-val="P" title="正文">¶</button>'+
+      '<button type="button" data-cmd="insertUnorderedList" title="列表">≡</button>'+
+      '<button type="button" data-cmd="formatBlock" data-val="BLOCKQUOTE" title="引用">❝</button>'+
+      '<button type="button" data-cmd="createLink" title="链接">🔗</button>'+
+      '<button type="button" data-cmd="removeFormat" title="清除格式">⌫</button>'+
+    '</div>'+
+    '<div class="editor-area" id="fContent" contenteditable="true" data-placeholder="在此撰写正文…">'+(x.content||'')+'</div>'+
+  '</div></div>'+
+  '<div class="form-row">'+
     '<div class="form-group"><label>文章 ID</label><input id="fId" value="'+esc(x.id||'')+'" placeholder="如 oppenheimer-time"><div class="hint">唯一标识，一般保存后勿改</div></div>'+
     '<div class="form-group"><label>链接</label><input id="fUrl" value="'+esc(x.url||'')+'" placeholder="#/article/oppenheimer-time"><div class="hint">默认 #/article/ID，可留空自动生成</div></div>'+
     '<div class="form-group full"><div class="check-group"><input type="checkbox" id="fFeat" '+(x.featured?'checked':'')+'><label for="fFeat">进首页「编辑推荐」精选区</label></div></div>'+
@@ -558,6 +608,7 @@ function bindViewEvents(){
     if(save){ save.onclick = saveArticle; }
     var bl = $('backList');
     if(bl){ bl.onclick = function(){ go('articles'); }; }
+    bindEditorToolbar();
     syncCatEn();
   } else if(view==='work-edit' || view.indexOf('work-edit/')===0){
     var up2 = $('wSrcUp');
@@ -651,6 +702,9 @@ async function saveArticle(){
     catEn: $('fCatEn').value,
     title: title,
     excerpt: $('fExcerpt').value,
+    content: $('fContent').innerHTML,
+    tags: $('fTags').value.split(/[,，]/).map(function(s){return s.trim();}).filter(Boolean),
+    status: $('fStatus').value,
     date: $('fDate').value,
     read: $('fRead').value,
     cover: $('fCover').value,
